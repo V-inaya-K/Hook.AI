@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Caption Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="custom-navbar">
+    <div class="nav-container">
+        <div class="nav-brand">TITLE</div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">About</a></li>
+        </ul>
+        <form class="nav-search">
+            <input type="text" placeholder="Search...">
+            <button type="submit">🔍</button>
+        </form>
+    </div>
+</nav>
+    <div class="container">
+        <h1>YouTube Caption Generator</h1>
+        <form method="post" enctype="multipart/form-data">
+            <label for="video">Upload your video file</label><br>
+            <input type="file" name="video" id="video" required><br>
+            <input type="submit" value="Generate SEO Content">
+        </form>
+
+        {% if title %}
+            <hr>
+            <h2>📌 Generated Title:</h2>
+            <p>{{ title }}</p>
+
+            <h2>📝 Description:</h2>
+            <p>{{ description }}</p>
+
+            <h2>🏷️ Hashtags:</h2>
+            <p>{{ hashtags }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
