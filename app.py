@@ -1,75 +1,89 @@
-
 import os
-import whisper
-import google.generativeai as genai
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
+from faster_whisper import WhisperModel
+from groq import Groq
 
-# Load Gemini API key from .env
+# Load environment variables
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+groq_api_key = os.getenv("GROQ_API_KEY")
 
-# Flask + Whisper setup
+# Flask setup
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-whisper_model = whisper.load_model("base")
 
-# Generate YouTube Metadata using Gemini 1.5 Pro
-def generate_youtube_metadata(transcript):
-    prompt = f"""
-You're a YouTube SEO expert. Based on the following video transcript, generate:
-1. A viral YouTube video title (max 100 characters)
-2. An SEO-optimized video description (2-3 sentences)
-3. A list of up to 10 relevant hashtags
+# Load Whisper model
+whisper_model = WhisperModel("base")
 
-Transcript:
-{transcript}
+# Initialize Groq client
+groq_client = Groq(api_key=groq_api_key)
 
-Format the output like:
+# Summarizer function
+def summarize_transcript(transcript: str) -> str:
+    messages = [
+        {"role": "system", "content": "Summarize this transcript into a concise 200-word summary for metadata generation."},
+        {"role": "user", "content": transcript}
+    ]
+    response = groq_client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=messages
+    )
+    return response.choices[0].message.content.strip()
+
+# Metadata generator
+def generate_youtube_metadata(summary: str) -> str:
+    messages = [
+        {"role": "system", "content": "You are a YouTube SEO expert who generates viral titles, descriptions, and hashtags. Use Hinglish or Hindi slang if appropriate."},
+        {"role": "user", "content": f"""
+Transcript Summary:
+{summary}
+
+Generate:
 Title: ...
 Description: ...
 Hashtags: ...
-"""
-    # Use correct model name
-    model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest")
-
-    try:
-        response = model.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        return f"Error generating metadata: {e}"
+"""}
+    ]
+    response = groq_client.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=messages
+    )
+    return response.choices[0].message.content.strip()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    title = description = hashtags = None
+    title = description = hashtags = error = None
 
     if request.method == 'POST':
-        video = request.files['video']
+        video = request.files.get('video')
         if video:
             filename = secure_filename(video.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             video.save(filepath)
 
-            # Transcribe with Whisper
-            result = whisper_model.transcribe(filepath)
-            transcript = result['text']
-
-            # Get metadata from Gemini
-            metadata = generate_youtube_metadata(transcript)
-
             try:
-                lines = metadata.splitlines()
-                title = next(line.split(":", 1)[1].strip() for line in lines if line.lower().startswith("title"))
-                description = next(line.split(":", 1)[1].strip() for line in lines if line.lower().startswith("description"))
-                hashtags = next(line.split(":", 1)[1].strip() for line in lines if line.lower().startswith("hashtags"))
-            except Exception:
-                title = "Error parsing metadata"
-                description = metadata
-                hashtags = ""
+                # Transcribe video
+                segments, _ = whisper_model.transcribe(filepath)
+                transcript = " ".join(segment.text for segment in segments)
 
-    return render_template("index.html", title=title, description=description, hashtags=hashtags)
+                # Summarize transcript
+                summary = summarize_transcript(transcript)
+
+                # Generate metadata
+                metadata = generate_youtube_metadata(summary)
+
+                # Parse output
+                lines = metadata.splitlines()
+                title = next((line.split(":", 1)[1].strip() for line in lines if line.lower().startswith("title")), "")
+                description = next((line.split(":", 1)[1].strip() for line in lines if line.lower().startswith("description")), "")
+                hashtags = next((line.split(":", 1)[1].strip() for line in lines if line.lower().startswith("hashtags")), "")
+
+            except Exception as e:
+                error = f"❌ {str(e)}"
+
+    return render_template("index.html", title=title, description=description, hashtags=hashtags, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
