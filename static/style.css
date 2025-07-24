@@ -1,6 +1,7 @@
 body {
     font-family: 'Inter', sans-serif;
-    background-image: url('https://t4.ftcdn.net/jpg/02/51/28/19/240_F_251281950_Ly2e5AczbGSm9w8gw2PXGpHS7UbGGieS.jpg');
+    /* background-image: url('https://t4.ftcdn.net/jpg/02/67/40/21/240_F_267402109_jZvsqRQUvSxohAOmcUt549jlapqoRHM0.jpg'); */
+    background-image: url('https://t3.ftcdn.net/jpg/13/15/95/50/240_F_1315955075_hZRhNsHBI9jh7qkRroZLj8HYlSjBUj99.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -22,7 +23,7 @@ body {
     width: 100%;
     border: 3px solid #000000;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(145, 145, 145, 0.329);
 }
 
 h1 {
@@ -44,7 +45,7 @@ input[type="file"] {
 }
 
 input[type="submit"] {
-    background-color: #081a68;
+    background-color: #0a1240;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -60,7 +61,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #08683b;
+    background-color: rgb(25, 44, 150);
 }
 
 hr {
@@ -130,11 +131,11 @@ p {
     left: 0;
     right: 0;
     width: 100vw; /* Full width of viewport */
-    background: rgb(129, 129, 129);
+    background: rgba(0, 0, 0, 0.445);
     /* background: linear-gradient(to right, #2b747e, #243b55); */
     color: white;
     padding: 10px 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 30px rgba(255, 255, 255, 0.582);
     z-index: 1000;
     font-family: 'Inter', sans-serif;
 }
@@ -155,7 +156,7 @@ body {
 .nav-brand {
     font-size: 24px;
     font-weight: 700;
-    color: #000000;
+    color: #ffffff;
 }
 
 .nav-links {
@@ -167,7 +168,7 @@ body {
 }
 
 .nav-links li a {
-    color: #000000;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
     font-size: 20px;
@@ -175,7 +176,7 @@ body {
 }
 
 .nav-links li a:hover {
-    color: #ffffff;
+    color: #888888;
 }
 
 .nav-search {
@@ -202,6 +203,7 @@ body {
 }
 
 .nav-search button:hover {
-    background-color: #000000;
+    background-color: #888888;
 }
 /* Navbar Ends */
+

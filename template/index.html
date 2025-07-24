@@ -6,41 +6,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.png') }}">
+    <style>
+        .loader {
+            display: none;
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .loader span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 3px;
+            background-color: #1d00a0;
+            border-radius: 50%;
+            animation: bounce 0.6s infinite alternate;
+        }
+        .loader span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loader span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+            to {
+                transform: translateY(-100%);
+            }
+        }
+        .result {
+            background: #fff;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+    </style>
 </head>
 <body>
     <nav class="custom-navbar">
-    <div class="nav-container">
-        <div class="nav-brand">TITLE</div>
-        <ul class="nav-links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
-        <form class="nav-search">
-            <input type="text" placeholder="Search...">
-            <button type="submit">🔍</button>
-        </form>
-    </div>
-</nav>
+        <div class="nav-container">
+            <div class="nav-brand"><img src="{{ url_for('static', filename='logo.png') }}" style="height: 30px;"></div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <form class="nav-search">
+                <input type="text" placeholder="Search...">
+                <button type="submit">🔍</button>
+            </form>
+        </div>
+    </nav>
+
     <div class="container">
         <h1>YouTube Caption Generator</h1>
-        <form method="post" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
             <label for="video">Upload your video file</label><br>
             <input type="file" name="video" id="video" required><br>
             <input type="submit" value="Generate SEO Content">
+
+            <div class="loader" id="loader">
+                <span></span><span></span><span></span>
+            </div>
         </form>
 
         {% if title %}
+        <div class="result">
             <hr>
-            <h2>📌 Generated Title:</h2>
+            <h2>Title:</h2>
             <p>{{ title }}</p>
 
-            <h2>📝 Description:</h2>
+            <h2>Description:</h2>
             <p>{{ description }}</p>
 
-            <h2>🏷️ Hashtags:</h2>
+            <h2>Hashtags:</h2>
             <p>{{ hashtags }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Transcripts Starts -->
+        <!-- {% if transcript %}
+        <div class="result">
+            <h2>🗣️ Transcript:</h2>
+            <div class="transcript-box">{{ transcript }}</div>
+        </div>
+        {% endif %} -->
+        <!-- Transcripts Ends -->
+
+        {% if error %}
+        <div class="result" style="border-left: 5px solid red;">
+            <h2>Error:</h2>
+            <p>{{ error }}</p>
+        </div>
         {% endif %}
     </div>
+    <!-- <div class="container-Steps">
+        <h1>Steps to Follow</h1>
+    </div> -->
+    <script>
+        function showLoader() {
+            document.getElementById("loader").style.display = "block";
+        }
+
+        window.onload = function () {
+            const result = document.querySelector('.result');
+            if (result) {
+                result.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
 </body>
 </html>
