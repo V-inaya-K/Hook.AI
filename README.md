@@ -6,11 +6,11 @@
 
 ## 🧲Tech Stack
 
- - Flask – Handles backend web routing and file uploads.
- - FasterWhisper – For fast and accurate multilingual transcription of uploaded audio/video.
- - LangChain – Manages prompt chaining and integration with the LLM for structured output.
- - Groq (Llama2-8b-8192) – Lightning-fast LLM for generating titles, descriptions, and hashtags.
- - RecursiveCharacterTextSplitter – Breaks long transcripts into digestible chunks for better LLM comprehension.
+ - Flask – handles backend web routing and file uploading.
+ - FasterWhisper – For quick and accurate multilingual transcription of uploaded audio/video.
+ - LangChain – Manages prompt chaining and LLM integration for formatted output.
+ - Groq (Llama2-8b-8192) – Extremely fast LLM for title, description, and hashtag creation.
+ - RecursiveCharacterTextSplitter – Divides long transcripts into bite-sized chunks for better LLM comprehension.
  - HTML5 & CSS3 – Builds the responsive frontend and user interface.
  - JavaScript – Adds interactivity.
 
