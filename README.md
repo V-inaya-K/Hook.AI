@@ -15,21 +15,21 @@
  - JavaScript – Adds interactivity.
 
 ## 🌀Workflow
- - User selects a video file.
- - ffmpeg encodes the uploaded video into 16kHz mono WAV format.
- - FasterWhisper (distil-small.en) translates the audio into words.
- - Large texts are divided into smaller logical portions by RecursiveCharacterTextSplitter.
- - A tailored LangChain prompt is designed through prompt engineering skills.
- - Groq LLM (LLaMA 2 8B 8192) executes the transcript and generates Viral title, description andtrending hashtags
- - Everything that is created is showcased on the frontend.
+ 1. User selects a video file.
+ 2. ffmpeg encodes the uploaded video into 16kHz mono WAV format.
+ 3. FasterWhisper (distil-small.en) translates the audio into words.
+ 4. Large texts are divided into smaller logical portions by RecursiveCharacterTextSplitter.
+ 5. A tailored LangChain prompt is designed through prompt engineering skills.
+ 6. Groq LLM (LLaMA 2 8B 8192) executes the transcript and generates Viral title, description andtrending hashtags
+ 7. Everything that is created is showcased on the frontend.
 
 ## 🌊Run on your System
 
-**Step1:** git clone https://github.com/V-inaya-K/Hook.ai.git<br />
-**Step2:** cd yt caption<br />
-**Step3:** create .env file with your grop Api key(GROQ_API_KEY=YOUR_KEY)<br />
-**Step4:** pip install -r requirements.txt<br />
-**Step5:** python app.py<br />
+ **Step1:** git clone https://github.com/V-inaya-K/Hook.ai.git<br />
+ **Step2:** cd yt caption<br />
+ **Step3:** create .env file with your grop Api key(GROQ_API_KEY=YOUR_KEY)<br />
+ **Step4:** pip install -r requirements.txt<br />
+ **Step5:** python app.py<br />
 
 ## 🚀Future Ambitions
 
