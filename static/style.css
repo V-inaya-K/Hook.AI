@@ -16,8 +16,8 @@ body {
 }
 
 .container {
-    background: white;
-    margin-top: 10%;
+    background: rgb(255, 255, 255);
+    margin-top: 3%;
     padding: 20px;
     max-width: 600px;
     width: 100%;
@@ -30,7 +30,7 @@ h1 {
     text-align: center;
     font-size: 36px;
     margin-bottom: 20px;
-    color: #111;
+    color: #000000;
 }
 
 label {
@@ -135,7 +135,7 @@ p {
     /* background: linear-gradient(to right, #2b747e, #243b55); */
     color: white;
     padding: 10px 20px;
-    box-shadow: 0 2px 30px rgba(255, 255, 255, 0.582);
+    box-shadow: 0 2px 40px rgba(255, 255, 255, 0.432);
     z-index: 1000;
     font-family: 'Inter', sans-serif;
 }
@@ -206,4 +206,39 @@ body {
     background-color: #888888;
 }
 /* Navbar Ends */
+/* YouTube box starts */
+.demo-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.05);
+            text-align: center;
+            color: #fff;
+        }
+        .youtube-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1rem;
+        }
+        .youtube-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
 
+/* YouTube box starts */
+
+/* Wrapper to stack content vertically */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}

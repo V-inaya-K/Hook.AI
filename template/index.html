@@ -57,7 +57,7 @@
             </form>
         </div>
     </nav>
-
+<div class="main-wrapper">
     <div class="container">
         <h1>YouTube Caption Generator</h1>
         <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
@@ -100,9 +100,27 @@
         </div>
         {% endif %}
     </div>
-    <!-- <div class="container-Steps">
-        <h1>Steps to Follow</h1>
+     <!-- <div class="container-steps">
+        <h2>Steps to use Hook.ai</h2>
+        <ul>
+            <li value="=>">Select any video file</li>
+            <li>Click “Generate Viral Content”</li>
+            <li>Voila! See the Magic..</li>
+        </ul>
     </div> -->
+     <div class="container demo-section">
+        <h2>Here's a demo</h2>
+        <div class="youtube-container">
+            <iframe width="560" height="315" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                    title="Demo Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
     <script>
         function showLoader() {
             document.getElementById("loader").style.display = "block";
